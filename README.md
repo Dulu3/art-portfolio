@@ -21,7 +21,6 @@ innyaspektstudio/
 │   ├── artysta.jpg         ← zdjęcie w sekcji "O artyście"
 │   ├── favicon.png         ← ikona w pasku przeglądarki
 │   └── obraz1.jpg ...
-└── JAK_DODAC_OBRAZY.txt
 ```
 
 ## Dodawanie obrazów
