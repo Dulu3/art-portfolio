@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inny Aspekt Studio — Portfolio</title>
+<link rel="icon" type="image/png" href="obrazy/favicon.png">
+<link rel="apple-touch-icon" href="obrazy/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syncopate:wght@400;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --border: #1e1e1e;
+    --gold: #c9a84c;
+    --gold-dim: #7a6230;
+    --white: #e8e4dd;
+    --grey: #555;
+    --grey2: #333;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Cursor */
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; top: 0; left: 0; }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold-dim); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.12s, opacity 0.2s; top: 0; left: 0; }
+
+  /* Grain */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 10000; opacity: 0.5;
+  }
+
+  /* Header */
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 48px; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+  .logo { font-family: 'Syncopate', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.3em; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--gold); }
+  nav { display: flex; gap: 40px; }
+  nav a { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color 0.3s; }
+  nav a:hover { color: var(--white); }
+  .ig-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: none; border: 1px solid var(--gold-dim); color: var(--gold);
+    font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.2em;
+    padding: 10px 20px; cursor: none; transition: all 0.3s; text-decoration: none;
+  }
+  .ig-btn:hover { background: var(--gold); color: var(--bg); }
+
+  /* Hero */
+  .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a140a 0%, #080808 70%); }
+  .hero-lines { position: absolute; inset: 0; background-image: linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px); background-size: 80px 80px; opacity: 0.3; }
+  .hero-content { position: relative; text-align: center; }
+  .hero-eyebrow { font-family: 'Syncopate', sans-serif; font-size: 10px; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 32px; animation: fadeUp 1s ease both; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(72px, 12vw, 160px); font-weight: 300; line-height: 0.9; letter-spacing: -0.02em; animation: fadeUp 1s 0.15s ease both; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2vw, 22px); font-weight: 300; font-style: italic; color: var(--grey); margin-top: 24px; animation: fadeUp 1s 0.3s ease both; }
+  .hero-ig { font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.3em; color: var(--gold-dim); margin-top: 20px; animation: fadeUp 1s 0.45s ease both; }
+  .hero-scroll { position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; animation: fadeUp 1s 0.5s ease both; }
+  .hero-scroll span { font-size: 9px; letter-spacing: 0.4em; color: var(--grey); text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollLine 2s infinite; }
+
+  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* Section */
+  section { padding: 120px 48px; }
+  .section-label { font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 64px; }
+
+  /* Gallery */
+  .gallery-grid { columns: 3; gap: 3px; }
+  @media (max-width: 900px) { .gallery-grid { columns: 2; } }
+  @media (max-width: 600px) { .gallery-grid { columns: 1; } }
+
+  .gallery-item { break-inside: avoid; position: relative; margin-bottom: 3px; overflow: hidden; cursor: none; }
+  .gallery-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; filter: grayscale(20%); }
+  .gallery-item:hover img { transform: scale(1.04); filter: grayscale(0%); }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,0.95);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s;
+    backdrop-filter: blur(12px);
+  }
+  .lightbox.open { opacity: 1; pointer-events: all; }
+
+  .lightbox-img {
+    max-width: 90vw; max-height: 90vh;
+    object-fit: contain; display: block;
+    transform: scale(0.96);
+    transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.15s;
+  }
+  .lightbox.open .lightbox-img { transform: scale(1); }
+
+  .lightbox-close {
+    position: fixed; top: 28px; right: 40px;
+    background: none; border: none; color: var(--grey);
+    font-size: 36px; line-height: 1; cursor: none; z-index: 301;
+    transition: color 0.2s;
+  }
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-prev, .lightbox-next {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    background: none; border: 1px solid var(--grey2); color: var(--grey);
+    font-size: 24px; width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: none; z-index: 301; transition: all 0.25s;
+  }
+  .lightbox-prev { left: 24px; }
+  .lightbox-next { right: 24px; }
+  .lightbox-prev:hover, .lightbox-next:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* About */
+  .about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  @media (max-width: 768px) { .about-section { grid-template-columns: 1fr; } }
+  .about-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.7; color: var(--grey); }
+  .about-text em { color: var(--white); font-style: italic; }
+  .about-img { position: relative; aspect-ratio: 3/4; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); }
+  .about-img::before { content: ''; position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px; border: 1px solid var(--gold-dim); pointer-events: none; z-index: -1; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .footer-logo { font-family: 'Syncopate', sans-serif; font-size: 12px; letter-spacing: 0.3em; }
+  .footer-logo span { color: var(--gold); }
+  footer p { font-size: 11px; color: var(--grey); letter-spacing: 0.1em; }
+  .ig-link { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+  .ig-link:hover { opacity: 0.7; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Header -->
+<header>
+  <a href="#" class="logo">INNY ASPEKT <span>STUDIO</span></a>
+  <nav>
+    <a href="#galeria">Galeria</a>
+    <a href="#o-mnie">O mnie</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a href="https://ig.me/m/innyaspektstudio" target="_blank" class="ig-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    ZAMÓW
+  </a>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Portfolio artystyczne</div>
+    <h1 class="hero-title">Sztuka<br><em>na ścianie</em></h1>
+    <p class="hero-subtitle">Kliknij obraz aby zobaczyć szczegóły</p>
+    <p class="hero-ig">@innyaspektstudio</p>
+  </div>
+  <div class="hero-scroll">
+    <span>Przewiń</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- Gallery -->
+<section id="galeria">
+  <div class="section-label">Kolekcja</div>
+  <h2 class="section-title">Galeria<br>prac</h2>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- About -->
+<section id="o-mnie" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="about-section">
+    <div>
+      <div class="section-label">O artyście</div>
+      <h2 class="section-title" style="margin-bottom: 32px;">Pasja<br>w każdym<br><em style="font-family:'Cormorant Garamond',serif; color: var(--gold);">pociągnięciu</em></h2>
+      <p class="about-text">
+        Tworzę obrazy, które <em>żyją własnym życiem</em>. Każda praca to wynik głębokiej refleksji, eksperymentu z kolorem i formą. Specjalizuję się w abstrakcji oraz portretach akrylowych.
+        <br><br>
+        Zamów swój unikalny obraz — <em>kontaktując się przez Instagram</em>.
+      </p>
+    </div>
+    <div class="about-img">
+      <img src="obrazy/artysta.jpg" alt="Artysta przy pracy">
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="kontakt">
+  <div class="footer-logo">INNY ASPEKT <span>STUDIO</span></div>
+  <p>Instagram: <a href="https://instagram.com/innyaspektstudio" target="_blank" class="ig-link">@innyaspektstudio</a></p>
+  <p style="font-size:10px; color: var(--grey2);">© 2025 Inny Aspekt Studio</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <button class="lightbox-prev" onclick="lightboxNav(-1)">&#8249;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-next" onclick="lightboxNav(1)">&#8250;</button>
+</div>
+
+<script>
+  // ============================================================
+  //  TWOJE OBRAZY — dodaj tyle ile chcesz, bez ograniczeń!
+  //
+  //  Wrzuć zdjęcia do folderu "obrazy/" i dopisz ich nazwy:
+  //    'nazwa.jpg'  — obraz poziomy lub kwadratowy
+  //    'nazwa.jpg!' — obraz pionowy (dodaj ! na końcu nazwy)
+  //
+  //  Lub uruchom: powershell -ExecutionPolicy Bypass -File obrazy\aktualizuj.ps1
+  // ============================================================
+  const pliki = [
+    'obraz1.jpg!',
+    'obraz10.jpg!',
+    'obraz11.jpg',
+    'obraz2.jpg',
+    'obraz3.jpg!',
+    'obraz4.jpg!',
+    'obraz5.jpg!',
+    'obraz6.jpg!',
+    'obraz7.jpg!',
+    'obraz8.jpg!',
+    'obraz9.jpg!',
+  ];
+
+  const artworks = pliki.map((f, i) => ({
+    id: i,
+    img: 'obrazy/' + f.replace('!', ''),
+    tall: f.endsWith('!')
+  }));
+
+  // ── Galeria ──
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    artworks.forEach((art, i) => {
+      const div = document.createElement('div');
+      div.className = 'gallery-item';
+      div.onclick = () => openLightbox(i);
+      div.innerHTML = `<img src="${art.img}" alt="Obraz ${i + 1}" loading="lazy" style="${art.tall ? 'aspect-ratio:3/4' : 'aspect-ratio:4/3'}; object-fit:cover;">`;
+      grid.appendChild(div);
+    });
+  }
+
+  // ── Lightbox ──
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById('lightboxImg').src = artworks[index].img;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lightboxNav(dir) {
+    currentIndex = (currentIndex + dir + artworks.length) % artworks.length;
+    const img = document.getElementById('lightboxImg');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = artworks[currentIndex].img;
+      img.style.opacity = '1';
+    }, 150);
+  }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+  });
+
+  // ── Kursor ──
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
+  });
+
+  (function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('button, a').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; });
+  });
+
+  renderGallery();
+</script>
+</body>
+</html>
