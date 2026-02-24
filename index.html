@@ -53,7 +53,24 @@
   }
 
   /* Header */
-  header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 48px; background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent); }
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: transparent;
+    transition: background 0.3s, padding 0.3s, backdrop-filter 0.3s;
+  }
+  header.scrolled {
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(16px);
+    padding: 16px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 600px) {
+    header { padding: 20px 24px; }
+    header.scrolled { padding: 14px 24px; }
+    nav { display: none; }
+  }
   .logo { font-family: 'Syncopate', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.3em; color: var(--white); text-decoration: none; }
   .logo span { color: var(--gold); }
   nav { display: flex; gap: 40px; }
@@ -86,6 +103,7 @@
 
   /* Section */
   section { padding: 120px 48px; }
+  @media (max-width: 600px) { section { padding: 80px 20px; } }
   .section-label { font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
   .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 64px; }
 
@@ -147,6 +165,7 @@
 
   /* Footer */
   footer { border-top: 1px solid var(--border); padding: 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  @media (max-width: 600px) { footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; } }
   .footer-logo { font-family: 'Syncopate', sans-serif; font-size: 12px; letter-spacing: 0.3em; }
   .footer-logo span { color: var(--gold); }
   footer p { font-size: 11px; color: var(--grey); letter-spacing: 0.1em; }
@@ -331,6 +350,21 @@
   document.querySelectorAll('button, a').forEach(el => {
     el.addEventListener('mouseenter', () => { ring.style.opacity = '0.3'; });
     el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; });
+  });
+
+  // ── Header on scroll ──
+  window.addEventListener('scroll', () => {
+    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Swipe lightbox on mobile ──
+  let touchStartX = 0;
+  document.getElementById('lightbox').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  });
+  document.getElementById('lightbox').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) lightboxNav(diff > 0 ? 1 : -1);
   });
 
   renderGallery();
