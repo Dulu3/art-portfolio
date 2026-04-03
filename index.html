@@ -359,6 +359,7 @@
 
 <script>
   const PHOTOS = [
+    'top__DSC7755.jpg',
     '_DSC0025-Poprawione-Szum.jpg',
     '_DSC0112.jpg',
     '_DSC0275.jpg',
@@ -403,7 +404,6 @@
     '_DSC7436.jpg',
     '_DSC7518.jpg',
     '_DSC7613.jpg',
-    'top__DSC7755.jpg',
     '_DSC7766.jpg',
     '_DSC7768.jpg',
     '_DSC7958.jpg',
@@ -446,7 +446,7 @@
     return pic;
   }
 
-  const topPhoto = PHOTOS.find(p => p.startsWith('top_')) || PHOTOS[0];
+  const topPhoto = PHOTOS.find(p => p.startsWith('top_')) || PHOTOS;
   document.getElementById('heroBg').style.backgroundImage = `url('${webpFull(topPhoto)}')`;
 
   let photos = [];
