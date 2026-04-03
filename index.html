@@ -3,371 +3,552 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inny Aspekt Studio — Portfolio</title>
-<link rel="icon" type="image/png" href="obrazy/favicon.png">
-<link rel="apple-touch-icon" href="obrazy/favicon.png">
-
-<!-- Podgląd przy udostępnianiu (Messenger, WhatsApp, itp.) -->
-<meta property="og:title" content="Inny Aspekt Studio — Portfolio">
-<meta property="og:description" content="Oryginalne obrazy akrylowe. Zamów przez Instagram.">
-<meta property="og:image" content="https://innyaspekt.art/obrazy/artysta.jpg">
-<meta property="og:url" content="https://innyaspekt.art">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://innyaspekt.art/obrazy/artysta.jpg">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syncopate:wght@400;700&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<title>dulu.hehe — Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
   :root {
-    --bg: #080808;
-    --surface: #0f0f0f;
-    --border: #1e1e1e;
-    --gold: #c9a84c;
-    --gold-dim: #7a6230;
-    --white: #e8e4dd;
-    --grey: #555;
-    --grey2: #333;
+    --black:  #080808;
+    --grey:   #1a1a1a;
+    --mid:    #2a2a2a;
+    --accent: #ff3d00;
+    --text:   #e8e8e8;
+    --muted:  #555;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
     overflow-x: hidden;
-    cursor: none;
   }
 
-  /* Cursor */
-  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; top: 0; left: 0; }
-  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold-dim); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.12s, opacity 0.2s; top: 0; left: 0; }
-
-  /* Grain */
-  body::before {
+  /* noise grain */
+  body::after {
     content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 10000; opacity: 0.5;
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    opacity: 0.22; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Header */
+  /* ═══ HEADER ═══ */
   header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 24px 48px;
-    background: transparent;
-    transition: background 0.3s, padding 0.3s, backdrop-filter 0.3s;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+    padding: 18px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.98) 0%, transparent 100%);
   }
-  header.scrolled {
-    background: rgba(8,8,8,0.97);
-    backdrop-filter: blur(16px);
-    padding: 16px 48px;
-    border-bottom: 1px solid var(--border);
+  .logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.6rem; letter-spacing: 0.12em;
+    color: var(--text); text-decoration: none;
   }
-  @media (max-width: 600px) {
-    header { padding: 20px 24px; }
-    header.scrolled { padding: 14px 24px; }
-    nav { display: none; }
+  .logo em { color: var(--accent); font-style: normal; }
+
+  nav { display: flex; gap: 24px; align-items: center; }
+  nav a {
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.2s;
   }
-  .logo { font-family: 'Syncopate', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.3em; color: var(--white); text-decoration: none; }
-  .logo span { color: var(--gold); }
-  nav { display: flex; gap: 40px; }
-  nav a { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color 0.3s; }
-  nav a:hover { color: var(--white); }
-  .ig-btn {
-    display: flex; align-items: center; gap: 8px;
-    background: none; border: 1px solid var(--gold-dim); color: var(--gold);
-    font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.2em;
-    padding: 10px 20px; cursor: none; transition: all 0.3s; text-decoration: none;
+  nav a:hover { color: var(--text); }
+
+  /* hamburger — mobile only */
+  .burger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
   }
-  .ig-btn:hover { background: var(--gold); color: var(--bg); }
+  .burger span {
+    display: block; width: 22px; height: 1px; background: var(--text);
+    transition: all 0.25s;
+  }
+  .burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-  /* Hero */
-  .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, #1a140a 0%, #080808 70%); }
-  .hero-lines { position: absolute; inset: 0; background-image: linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px); background-size: 80px 80px; opacity: 0.3; }
-  .hero-content { position: relative; text-align: center; }
-  .hero-eyebrow { font-family: 'Syncopate', sans-serif; font-size: 10px; letter-spacing: 0.5em; color: var(--gold); margin-bottom: 32px; animation: fadeUp 1s ease both; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(72px, 12vw, 160px); font-weight: 300; line-height: 0.9; letter-spacing: -0.02em; animation: fadeUp 1s 0.15s ease both; }
-  .hero-title em { font-style: italic; color: var(--gold); }
-  .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2vw, 22px); font-weight: 300; font-style: italic; color: var(--grey); margin-top: 24px; animation: fadeUp 1s 0.3s ease both; }
-  .hero-ig { font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.3em; color: var(--gold-dim); margin-top: 20px; animation: fadeUp 1s 0.45s ease both; }
-  .hero-scroll { position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; animation: fadeUp 1s 0.5s ease both; }
-  .hero-scroll span { font-size: 9px; letter-spacing: 0.4em; color: var(--grey); text-transform: uppercase; }
-  .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollLine 2s infinite; }
+  /* mobile nav drawer */
+  .mobile-nav {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(8,8,8,0.98);
+    z-index: 290;
+    flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2.5rem; letter-spacing: 0.2em;
+    color: var(--text); text-decoration: none; transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--accent); }
 
-  @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  /* ═══ HERO ═══ */
+  .hero {
+    height: 100svh; min-height: 500px;
+    display: flex; align-items: flex-end;
+    padding: 0 32px 64px; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center 30%;
+    filter: brightness(0.28) saturate(0.7);
+    transform: scale(1.06);
+    animation: slowzoom 22s ease-in-out infinite alternate;
+  }
+  @keyframes slowzoom {
+    from { transform: scale(1.06); }
+    to   { transform: scale(1.13); }
+  }
+  .hero-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top,
+      var(--black) 0%,
+      rgba(8,8,8,0.55) 40%,
+      transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .eyebrow {
+    font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ''; display: block; width: 30px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(4.5rem, 14vw, 12rem);
+    line-height: 0.88; letter-spacing: -0.01em; color: var(--text);
+  }
+  h1 .out { -webkit-text-stroke: 1px var(--text); color: transparent; }
+  .hero-sub {
+    margin-top: 18px; font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); line-height: 1.9;
+  }
+  .hero-scroll {
+    position: absolute; right: 32px; bottom: 64px; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 0.5rem; letter-spacing: 0.3em; color: var(--muted);
+    text-transform: uppercase; writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: spulse 2s ease-in-out infinite;
+  }
+  @keyframes spulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 
-  /* Section */
-  section { padding: 120px 48px; }
-  @media (max-width: 600px) { section { padding: 80px 20px; } }
-  .section-label { font-family: 'Syncopate', sans-serif; font-size: 9px; letter-spacing: 0.5em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 300; line-height: 1; margin-bottom: 64px; }
+  /* ═══ SECTION ═══ */
+  section { padding: 60px 32px; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 14px; margin-bottom: 36px;
+  }
+  .sec-num {
+    font-family: 'Bebas Neue', cursive; font-size: 4rem;
+    color: var(--grey); line-height: 1; user-select: none;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', cursive; font-size: 2rem;
+    letter-spacing: 0.1em; color: var(--text);
+  }
+  .sec-line { flex: 1; height: 1px; background: var(--grey); margin-left: 12px; align-self: center; }
 
-  /* Gallery */
-  .gallery-grid { columns: 3; gap: 3px; }
-  @media (max-width: 900px) { .gallery-grid { columns: 2; } }
-  @media (max-width: 600px) { .gallery-grid { columns: 1; } }
+  /* ═══ SMART GRID ═══ */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    align-items: start;
+  }
+  .grid-item {
+    position: relative; overflow: hidden;
+    background: var(--grey); cursor: pointer;
+  }
+  .grid-item.landscape { grid-column: span 2; }
 
-  .gallery-item { break-inside: avoid; position: relative; margin-bottom: 3px; overflow: hidden; cursor: none; }
-  .gallery-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; filter: grayscale(20%); }
-  .gallery-item:hover img { transform: scale(1.04); filter: grayscale(0%); }
+  .grid-item img {
+    width: 100%; height: auto; display: block;
+    transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.35s ease;
+    filter: brightness(0.82) saturate(0.88);
+  }
+  .grid-item:hover img,
+  .grid-item:focus img {
+    transform: scale(1.04);
+    filter: brightness(1) saturate(1.05);
+  }
+  .grid-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.75) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.3s ease;
+    display: flex; align-items: flex-end; padding: 14px;
+  }
+  .grid-item:hover .grid-overlay,
+  .grid-item:focus .grid-overlay { opacity: 1; }
+  .grid-num {
+    font-family: 'Bebas Neue', cursive; font-size: 1.2rem;
+    color: var(--accent); letter-spacing: 0.1em;
+  }
 
-  /* Lightbox */
+  /* ═══ RESPONSIVE GRID ═══ */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-item.landscape { grid-column: span 2; }
+  }
+  @media (max-width: 540px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
+    /* on mobile landscape still spans 2 — fits nicely */
+    .grid-item.landscape { grid-column: span 2; }
+  }
+
+  /* ═══ FADE IN ═══ */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══ LIGHTBOX ═══ */
   .lightbox {
-    position: fixed; inset: 0; z-index: 300;
-    background: rgba(0,0,0,0.95);
+    position: fixed; inset: 0;
+    background: rgba(4,4,4,0.97);
+    z-index: 1000;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.35s;
-    backdrop-filter: blur(12px);
+    transition: opacity 0.25s ease;
   }
-  .lightbox.open { opacity: 1; pointer-events: all; }
-
-  .lightbox-img {
-    max-width: 90vw; max-height: 90vh;
-    object-fit: contain; display: block;
-    transform: scale(0.96);
-    transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.15s;
+  .lightbox.active { opacity: 1; pointer-events: all; }
+  .lightbox img {
+    max-width: 92vw; max-height: 88vh; object-fit: contain;
+    box-shadow: 0 0 120px rgba(0,0,0,0.9);
+    transition: opacity 0.18s;
+    display: block;
   }
-  .lightbox.open .lightbox-img { transform: scale(1); }
-
-  .lightbox-close {
-    position: fixed; top: 28px; right: 40px;
-    background: none; border: none; color: var(--grey);
-    font-size: 36px; line-height: 1; cursor: none; z-index: 301;
-    transition: color 0.2s;
+  .lb-close {
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: none; color: var(--text);
+    font-family: 'Bebas Neue', cursive; font-size: 1.2rem; letter-spacing: 0.2em;
+    cursor: pointer; transition: color 0.2s; z-index: 10;
+    padding: 8px 12px;
   }
-  .lightbox-close:hover { color: var(--white); }
-
-  .lightbox-prev, .lightbox-next {
-    position: fixed; top: 50%; transform: translateY(-50%);
-    background: none; border: 1px solid var(--grey2); color: var(--grey);
-    font-size: 24px; width: 52px; height: 52px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: none; z-index: 301; transition: all 0.25s;
+  .lb-close:hover { color: var(--accent); }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: none; border: 1px solid var(--mid); color: var(--text);
+    font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 0.1em;
+    padding: 10px 16px; cursor: pointer; transition: all 0.2s;
   }
-  .lightbox-prev { left: 24px; }
-  .lightbox-next { right: 24px; }
-  .lightbox-prev:hover, .lightbox-next:hover { border-color: var(--gold); color: var(--gold); }
+  .lb-nav:hover { border-color: var(--accent); color: var(--accent); }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  .lb-counter {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    font-size: 0.6rem; letter-spacing: 0.3em; color: var(--muted);
+  }
 
-  /* About */
-  .about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
-  @media (max-width: 768px) { .about-section { grid-template-columns: 1fr; } }
-  .about-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.7; color: var(--grey); }
-  .about-text em { color: var(--white); font-style: italic; }
-  .about-img { position: relative; aspect-ratio: 3/4; }
-  .about-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); }
-  .about-img::before { content: ''; position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px; border: 1px solid var(--gold-dim); pointer-events: none; z-index: -1; }
+  /* ═══ FOOTER ═══ */
+  footer {
+    padding: 48px 32px;
+    border-top: 1px solid var(--grey);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive; font-size: 2.4rem;
+    letter-spacing: 0.2em; color: var(--grey);
+  }
+  .footer-right {
+    font-size: 0.56rem; color: var(--muted);
+    letter-spacing: 0.16em; text-align: right; line-height: 2.2;
+  }
+  .footer-right a {
+    color: var(--accent); text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.18em;
+  }
+  .footer-right a:hover { text-decoration: underline; }
 
-  /* Footer */
-  footer { border-top: 1px solid var(--border); padding: 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
-  @media (max-width: 600px) { footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; } }
-  .footer-logo { font-family: 'Syncopate', sans-serif; font-size: 12px; letter-spacing: 0.3em; }
-  .footer-logo span { color: var(--gold); }
-  footer p { font-size: 11px; color: var(--grey); letter-spacing: 0.1em; }
-  .ig-link { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
-  .ig-link:hover { opacity: 0.7; }
+  /* ═══ MOBILE OVERRIDES ═══ */
+  @media (max-width: 768px) {
+    header { padding: 16px 20px; }
+    nav { display: none; }
+    .burger { display: flex; }
 
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+    .hero { padding: 0 20px 56px; }
+    .hero-scroll { display: none; }
+
+    section { padding: 48px 16px; }
+    .sec-num { font-size: 3rem; }
+    .sec-title { font-size: 1.6rem; }
+
+    .lb-nav { padding: 8px 12px; font-size: 1rem; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+    .lightbox img { max-width: 96vw; max-height: 82vh; }
+
+    footer { padding: 36px 20px; flex-direction: column; align-items: flex-start; }
+    .footer-right { text-align: left; }
+  }
+
+  @media (max-width: 400px) {
+    h1 { font-size: clamp(3.5rem, 18vw, 5rem); }
+    .logo { font-size: 1.3rem; }
+  }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- Header -->
+<!-- HEADER -->
 <header>
-  <a href="#" class="logo">INNY ASPEKT <span>STUDIO</span></a>
+  <a class="logo" href="#">dulu<em>.</em>hehe</a>
   <nav>
-    <a href="#galeria">Galeria</a>
-    <a href="#o-mnie">O mnie</a>
-    <a href="#kontakt">Kontakt</a>
+    <a href="#gallery">Galeria</a>
+    <a href="https://www.instagram.com/dulu_hehe" target="_blank" rel="noopener">↗ Instagram</a>
   </nav>
-  <a href="https://ig.me/m/innyaspektstudio" target="_blank" class="ig-btn">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    ZAMÓW
-  </a>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
 
-<!-- Hero -->
-<div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Portfolio artystyczne</div>
-    <h1 class="hero-title">Sztuka<br><em>na ścianie</em></h1>
-    <p class="hero-subtitle">Kliknij obraz aby zobaczyć szczegóły</p>
-    <p class="hero-ig">@innyaspektstudio</p>
-  </div>
-  <div class="hero-scroll">
-    <span>Przewiń</span>
-    <div class="scroll-line"></div>
-  </div>
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#gallery" onclick="closeMenu()">Galeria</a>
+  <a href="https://www.instagram.com/dulu_hehe" target="_blank" rel="noopener" onclick="closeMenu()">↗ Instagram</a>
 </div>
 
-<!-- Gallery -->
-<section id="galeria">
-  <div class="section-label">Kolekcja</div>
-  <h2 class="section-title">Galeria<br>prac</h2>
-  <div class="gallery-grid" id="galleryGrid"></div>
-</section>
-
-<!-- About -->
-<section id="o-mnie" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="about-section">
-    <div>
-      <div class="section-label">O artyście</div>
-      <h2 class="section-title" style="margin-bottom: 32px;">Pasja<br>w każdym<br><em style="font-family:'Cormorant Garamond',serif; color: var(--gold);">pociągnięciu</em></h2>
-      <p class="about-text">
-        Tworzę obrazy, które <em>żyją własnym życiem</em>. Każda praca to wynik głębokiej refleksji, eksperymentu z kolorem i formą. Specjalizuję się w abstrakcji oraz portretach akrylowych.
-        <br><br>
-        Zamów swój unikalny obraz — <em>kontaktując się przez Instagram</em>.
-      </p>
-    </div>
-    <div class="about-img">
-      <img src="obrazy/artysta.jpg" alt="Artysta przy pracy">
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="eyebrow">@dulu_hehe — Photography</div>
+    <h1>DULU<br><span class="out">HEHE</span></h1>
+    <p class="hero-sub">Muzyka. Światło. Chaos.<br>Uchwycone w jednym kadrze.</p>
   </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-header fade-in">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Galeria</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="grid" id="photoGrid"></div>
 </section>
 
-<!-- Footer -->
-<footer id="kontakt">
-  <div class="footer-logo">INNY ASPEKT <span>STUDIO</span></div>
-  <p>Instagram: <a href="https://instagram.com/innyaspektstudio" target="_blank" class="ig-link">@innyaspektstudio</a></p>
-  <p style="font-size:10px; color: var(--grey2);">© 2025 Inny Aspekt Studio</p>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">dulu.hehe</div>
+  <div class="footer-right">
+    <a href="https://www.instagram.com/dulu_hehe" target="_blank" rel="noopener">@dulu_hehe</a><br>
+    &copy; 2025 — Wszelkie prawa zastrzeżone<br>
+    Wszystkie zdjęcia są własnością autora
+  </div>
 </footer>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <button class="lightbox-prev" onclick="lightboxNav(-1)">&#8249;</button>
-  <img class="lightbox-img" id="lightboxImg" src="" alt="">
-  <button class="lightbox-next" onclick="lightboxNav(1)">&#8250;</button>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" onclick="closeLb()" aria-label="Zamknij">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbPrev()" aria-label="Poprzednie">&#8592;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbNext()" aria-label="Następne">&#8594;</button>
+  <div class="lb-counter" id="lbCounter"></div>
 </div>
 
 <script>
-  // ============================================================
-  //  TWOJE OBRAZY — dodaj tyle ile chcesz, bez ograniczeń!
-  //
-  //  Wrzuć zdjęcia do folderu "obrazy/" i dopisz ich nazwy:
-  //    'nazwa.jpg'  — obraz poziomy lub kwadratowy
-  //    'nazwa.jpg!' — obraz pionowy (dodaj ! na końcu nazwy)
-  //
-  //  Lub uruchom: powershell -ExecutionPolicy Bypass -File obrazy\aktualizuj.ps1
-  // ============================================================
-  const pliki = [
-    'obraz1.jpg!',
-    'obraz10.jpg!',
-    'obraz11.jpg',
-    'obraz2.jpg',
-    'obraz3.jpg!',
-    'obraz4.jpg!',
-    'obraz5.jpg!',
-    'obraz6.jpg!',
-    'obraz7.jpg!',
-    'obraz8.jpg!',
-    'obraz9.jpg!',
-  ];
+// ─────────────────────────────────────────────
+//  ZDJĘCIA — wrzuć wszystkie pliki do folderu
+//  "photos/" obok tego pliku HTML w repozytorium
+//  i zaktualizuj tę listę nazwami plików.
+// ─────────────────────────────────────────────
+const PHOTOS = [
+  '_DSC0025-Poprawione-Szum.jpg',
+  '_DSC0112.jpg',
+  '_DSC0275.jpg',
+  '_DSC0279.jpg',
+  '_DSC0348-Poprawione-Szum.jpg',
+  '_DSC0528-Poprawione-Szum.jpg',
+  '_DSC0600-Poprawione-Szum.jpg',
+  '_DSC0647.jpg',
+  '_DSC0906.jpg',
+  '_DSC1203-Poprawione-Szum-2.jpg',
+  '_DSC1674.jpg',
+  '_DSC2431-Poprawione-Szum.jpg',
+  '_DSC2451.jpg',
+  '_DSC2459.jpg',
+  '_DSC3077.jpg',
+  '_DSC3088.jpg',
+  '_DSC3109.jpg',
+  '_DSC3137.jpg',
+  '_DSC3155.jpg',
+  '_DSC3241.jpg',
+  '_DSC3244.jpg',
+  '_DSC3273.jpg',
+  '_DSC3461.jpg',
+  '_DSC3557.jpg',
+  '_DSC3640.jpg',
+  '_DSC4086.jpg',
+  '_DSC4182.jpg',
+  '_DSC4640.jpg',
+  '_DSC4671.jpg',
+  '_DSC4676.jpg',
+  '_DSC4714.jpg',
+  '_DSC4814.jpg',
+  '_DSC5653.jpg',
+  '_DSC6175.jpg',
+  '_DSC6260.jpg',
+  '_DSC6899.jpg',
+  '_DSC7040-Poprawione-Szum.jpg',
+  '_DSC7109-Poprawione-Szum.jpg',
+  '_DSC7190.jpg',
+  '_DSC7312.jpg',
+  '_DSC7367.jpg',
+  '_DSC7436.jpg',
+  '_DSC7518.jpg',
+  '_DSC7613.jpg',
+  '_DSC7757.jpg',
+  '_DSC7766.jpg',
+  '_DSC7768.jpg',
+  '_DSC7958.jpg',
+  '_DSC8039.jpg',
+  '_DSC8767.jpg',
+  '_DSC8828-Poprawione-Szum.jpg',
+  '_DSC9033.jpg',
+  '_DSC9134.jpg',
+  '_DSC9207-Poprawione-Szum.jpg',
+  '_DSC9444.jpg',
+  '_DSC9565.jpg',
+  '_DSC9693-Poprawione-Szum.jpg',
+  '_DSC9773.jpg',
+  '_DSC9788-Poprawione-Szum.jpg',
+  '_DSC9919-Poprawione-Szum.jpg',
+  '_DSC9971-Poprawione-Szum.jpg',
+];
 
-  const artworks = pliki.map((f, i) => ({
-    id: i,
-    img: 'obrazy/' + f.replace('!', ''),
-    tall: f.endsWith('!')
-  }));
+const FOLDER = 'photos/';
 
-  // ── Galeria ──
-  function renderGallery() {
-    const grid = document.getElementById('galleryGrid');
-    artworks.forEach((art, i) => {
-      const div = document.createElement('div');
-      div.className = 'gallery-item';
-      div.onclick = () => openLightbox(i);
-      div.innerHTML = `<img src="${art.img}" alt="Obraz ${i + 1}" loading="lazy" style="${art.tall ? 'aspect-ratio:3/4' : 'aspect-ratio:4/3'}; object-fit:cover;">`;
-      grid.appendChild(div);
+// ─── BUILD GRID ───
+let photos = []; // {url, landscape}
+let currentIdx = 0;
+
+async function init() {
+  const grid = document.getElementById('photoGrid');
+
+  // Set hero bg to first photo
+  document.getElementById('heroBg').style.backgroundImage = `url('${FOLDER}${PHOTOS[0]}')`;
+
+  for (let i = 0; i < PHOTOS.length; i++) {
+    const url  = FOLDER + PHOTOS[i];
+    const orient = await getOrientation(url);
+    const isLandscape = orient === 'landscape';
+    photos.push({ url, landscape: isLandscape });
+
+    const item = document.createElement('div');
+    item.className = `grid-item fade-in ${isLandscape ? 'landscape' : 'portrait'}`;
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', `Zdjęcie ${i + 1}`);
+    item.style.transitionDelay = `${(i % 9) * 0.035}s`;
+
+    const img = document.createElement('img');
+    img.src     = url;
+    img.alt     = PHOTOS[i];
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    const ov = document.createElement('div');
+    ov.className = 'grid-overlay';
+    ov.innerHTML = `<span class="grid-num">${String(i+1).padStart(2,'0')}</span>`;
+
+    item.appendChild(img);
+    item.appendChild(ov);
+    item.addEventListener('click', () => openLb(i));
+    item.addEventListener('keydown', e => { if (e.key === 'Enter') openLb(i); });
+    grid.appendChild(item);
+  }
+
+  observeFadeIns();
+}
+
+function getOrientation(url) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload  = () => resolve(img.naturalWidth >= img.naturalHeight ? 'landscape' : 'portrait');
+    img.onerror = () => resolve('portrait');
+    img.src = url;
+  });
+}
+
+// ─── LIGHTBOX ───
+function openLb(idx) {
+  currentIdx = idx;
+  updateLb();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function updateLb() {
+  const img = document.getElementById('lbImg');
+  img.style.opacity = 0;
+  img.src = photos[currentIdx].url;
+  img.onload = () => { img.style.opacity = 1; };
+  document.getElementById('lbCounter').textContent =
+    `${String(currentIdx+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
+}
+function lbNext() { currentIdx = (currentIdx + 1) % photos.length; updateLb(); }
+function lbPrev() { currentIdx = (currentIdx - 1 + photos.length) % photos.length; updateLb(); }
+
+// touch swipe on lightbox
+let tsX = null;
+document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+document.getElementById('lightbox').addEventListener('touchend',   e => {
+  if (tsX === null) return;
+  const dx = e.changedTouches[0].clientX - tsX;
+  if (Math.abs(dx) > 40) { dx < 0 ? lbNext() : lbPrev(); }
+  tsX = null;
+});
+
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'ArrowRight') lbNext();
+  if (e.key === 'ArrowLeft')  lbPrev();
+  if (e.key === 'Escape')     closeLb();
+});
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLb();
+});
+
+// ─── BURGER MENU ───
+const burger    = document.getElementById('burger');
+const mobileNav = document.getElementById('mobileNav');
+burger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeMenu() {
+  mobileNav.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── FADE IN ───
+function observeFadeIns() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
 
-  // ── Lightbox ──
-  let currentIndex = 0;
-
-  function openLightbox(index) {
-    currentIndex = index;
-    document.getElementById('lightboxImg').src = artworks[index].img;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function lightboxNav(dir) {
-    currentIndex = (currentIndex + dir + artworks.length) % artworks.length;
-    const img = document.getElementById('lightboxImg');
-    img.style.opacity = '0';
-    setTimeout(() => {
-      img.src = artworks[currentIndex].img;
-      img.style.opacity = '1';
-    }, 150);
-  }
-
-  document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-  });
-
-  document.addEventListener('keydown', e => {
-    if (!document.getElementById('lightbox').classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-    if (e.key === 'ArrowRight') lightboxNav(1);
-  });
-
-  // ── Kursor ──
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.transform = `translate(${mx - 4}px, ${my - 4}px)`;
-  });
-
-  (function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-    requestAnimationFrame(animateRing);
-  })();
-
-  document.querySelectorAll('button, a').forEach(el => {
-    el.addEventListener('mouseenter', () => { ring.style.opacity = '0.3'; });
-    el.addEventListener('mouseleave', () => { ring.style.opacity = '1'; });
-  });
-
-  // ── Header on scroll ──
-  window.addEventListener('scroll', () => {
-    document.querySelector('header').classList.toggle('scrolled', window.scrollY > 60);
-  });
-
-  // ── Swipe lightbox on mobile ──
-  let touchStartX = 0;
-  document.getElementById('lightbox').addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-  });
-  document.getElementById('lightbox').addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) lightboxNav(diff > 0 ? 1 : -1);
-  });
-
-  renderGallery();
+observeFadeIns(); // section header (before grid loads)
+init();
 </script>
 </body>
 </html>
