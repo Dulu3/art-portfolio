@@ -397,7 +397,7 @@
     '_DSC7436.jpg',
     '_DSC7518.jpg',
     '_DSC7613.jpg',
-    '_DSC7755.jpg',
+    '_DSC7757.jpg',
     '_DSC7766.jpg',
     '_DSC7768.jpg',
     '_DSC7958.jpg',
@@ -416,12 +416,32 @@
     '_DSC9971-Poprawione-Szum.jpg',
   ];
 
-  function baseName(n) { return n.startsWith('top_') ? n.slice(4) : n; }
-  function toWebP(n, size) { return `photos/webp/${size}/${baseName(n).replace(/\.(jpe?g|png)$/i, '.webp')}`; }
-  function toAvif(n, size) { return `photos/avif/${size}/${baseName(n).replace(/\.(jpe?g|png)$/i, '.avif')}`; }
+  function base(n) { return n.startsWith('top_') ? n.slice(4) : n; }
+  function toExt(n, f) { return base(n).replace(/\.(jpe?g|png)$/i, '.' + f); }
+  function avifSmall(n) { return `photos/avif/small/${toExt(n,'avif')}`; }
+  function avifFull(n)  { return `photos/avif/full/${toExt(n,'avif')}`; }
+  function webpSmall(n) { return `photos/webp/small/${toExt(n,'webp')}`; }
+  function webpFull(n)  { return `photos/webp/full/${toExt(n,'webp')}`; }
+
+  function makePicture(n, size) {
+    const pic = document.createElement('picture');
+    const sa = document.createElement('source');
+    sa.type = 'image/avif';
+    sa.srcset = size === 'small' ? avifSmall(n) : avifFull(n);
+    const sw = document.createElement('source');
+    sw.type = 'image/webp';
+    sw.srcset = size === 'small' ? webpSmall(n) : webpFull(n);
+    const img = document.createElement('img');
+    img.src = size === 'small' ? webpSmall(n) : webpFull(n);
+    img.alt = base(n);
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    pic.append(sa, sw, img);
+    return pic;
+  }
 
   const topPhoto = PHOTOS.find(p => p.startsWith('top_')) || PHOTOS[0];
-  document.getElementById('heroBg').style.backgroundImage = `url('${toWebP(topPhoto, 'full')}')`;
+  document.getElementById('heroBg').style.backgroundImage = `url('${webpFull(topPhoto)}')`;
 
   let photos = [];
   let currentIdx = 0;
@@ -435,27 +455,13 @@
     });
   }
 
-  function makePicture(name, size) {
-    const pic = document.createElement('picture');
-    const sa = document.createElement('source');
-    sa.type = 'image/avif'; sa.srcset = toAvif(name, size);
-    const sw = document.createElement('source');
-    sw.type = 'image/webp'; sw.srcset = toWebP(name, size);
-    const img = document.createElement('img');
-    img.src = toWebP(name, size);
-    img.alt = baseName(name);
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    pic.append(sa, sw, img);
-    return pic;
-  }
-
   async function init() {
     const grid = document.getElementById('photoGrid');
 
-    for (let i = 0; i < PHOTOS.length; i++) {
+    const orientations = await Promise.all(PHOTOS.map(n => getOrientation(avifSmall(n))));
+
+    orientations.forEach((orient, i) => {
       const name = PHOTOS[i];
-      const orient = await getOrientation(toWebP(name, 'small'));
       const isLandscape = orient === 'landscape';
       photos.push({ name, landscape: isLandscape });
 
@@ -467,7 +473,6 @@
       item.style.transitionDelay = `${(i % 9) * 0.035}s`;
 
       const pic = makePicture(name, 'small');
-
       const ov = document.createElement('div');
       ov.className = 'grid-overlay';
       ov.innerHTML = `<span class="grid-num">${String(i+1).padStart(2,'0')}</span>`;
@@ -476,7 +481,7 @@
       item.addEventListener('click', () => openLb(i));
       item.addEventListener('keydown', e => { if (e.key === 'Enter') openLb(i); });
       grid.appendChild(item);
-    }
+    });
 
     observeFadeIns();
   }
@@ -503,9 +508,9 @@
   function updateLb() {
     const name = photos[currentIdx].name;
     lbImg.style.opacity = 0;
-    lbSrcAvif.srcset = toAvif(name, 'full');
-    lbSrcWebp.srcset = toWebP(name, 'full');
-    lbImg.src = toWebP(name, 'full');
+    lbSrcAvif.srcset = avifFull(name);
+    lbSrcWebp.srcset = webpFull(name);
+    lbImg.src = webpFull(name);
     lbImg.onload = () => { lbImg.style.opacity = 1; };
     document.getElementById('lbCounter').textContent =
       `${String(currentIdx+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
