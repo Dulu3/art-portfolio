@@ -27,7 +27,7 @@
       overflow-x: hidden;
     }
 
-
+    /* noise grain */
     body::after {
       content: '';
       position: fixed; inset: 0; pointer-events: none; z-index: 9999;
@@ -35,7 +35,7 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-
+    /* ═══ HEADER ═══ */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 300;
       padding: 18px 32px;
@@ -56,7 +56,7 @@
     }
     nav a:hover { color: var(--text); }
 
-
+    /* hamburger — mobile only */
     .burger {
       display: none;
       flex-direction: column; gap: 5px;
@@ -70,7 +70,7 @@
     .burger.open span:nth-child(2) { opacity: 0; }
     .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-
+    /* mobile nav drawer */
     .mobile-nav {
       display: none;
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -86,7 +86,7 @@
     }
     .mobile-nav a:hover { color: var(--accent); }
 
-
+    /* ═══ HERO ═══ */
     .hero {
       height: 100svh; min-height: 500px;
       display: flex; align-items: flex-end;
@@ -142,7 +142,7 @@
     }
     @keyframes spulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 
-
+    /* ═══ SECTION ═══ */
     section { padding: 60px 32px; }
     .section-header {
       display: flex; align-items: baseline; gap: 14px; margin-bottom: 36px;
@@ -157,7 +157,7 @@
     }
     .sec-line { flex: 1; height: 1px; background: var(--grey); margin-left: 12px; align-self: center; }
 
-
+    /* ═══ SMART GRID ═══ */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -194,22 +194,22 @@
       color: var(--accent); letter-spacing: 0.1em;
     }
 
-
+    /* ═══ RESPONSIVE GRID ═══ */
     @media (max-width: 900px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
       .grid-item.landscape { grid-column: span 2; }
     }
     @media (max-width: 540px) {
       .grid { grid-template-columns: repeat(2, 1fr); gap: 3px; }
-
+      /* on mobile landscape still spans 2 — fits nicely */
       .grid-item.landscape { grid-column: span 2; }
     }
 
-
+    /* ═══ FADE IN ═══ */
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-
+    /* ═══ LIGHTBOX ═══ */
     .lightbox {
       position: fixed; inset: 0;
       background: rgba(4,4,4,0.97);
@@ -247,7 +247,7 @@
       font-size: 0.6rem; letter-spacing: 0.3em; color: var(--muted);
     }
 
-
+    /* ═══ FOOTER ═══ */
     footer {
       padding: 48px 32px;
       border-top: 1px solid var(--grey);
@@ -268,7 +268,7 @@
     }
     .footer-right a:hover { text-decoration: underline; }
 
-
+    /* ═══ MOBILE OVERRIDES ═══ */
     @media (max-width: 768px) {
       header { padding: 16px 20px; }
       nav { display: none; }
@@ -298,6 +298,7 @@
 </head>
 <body>
 
+<!-- HEADER -->
 <header>
   <a class="logo" href="#">dulu<em>.</em>hehe</a>
   <nav>
@@ -309,11 +310,13 @@
   </button>
 </header>
 
+<!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <a href="#gallery" onclick="closeMenu()">Galeria</a>
   <a href="https://www.instagram.com/dulu_hehe" target="_blank" rel="noopener" onclick="closeMenu()">↗ Instagram</a>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-grad"></div>
@@ -325,6 +328,7 @@
   <div class="hero-scroll"><div class="scroll-line"></div>scroll</div>
 </div>
 
+<!-- GALLERY -->
 <section id="gallery">
   <div class="section-header fade-in">
     <span class="sec-num">01</span>
@@ -334,6 +338,7 @@
   <div class="grid" id="photoGrid"></div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">dulu.hehe</div>
   <div class="footer-right">
@@ -343,6 +348,7 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
   <button class="lb-close" onclick="closeLb()" aria-label="Zamknij">✕</button>
   <button class="lb-nav lb-prev" onclick="lbPrev()" aria-label="Poprzednie">&#8592;</button>
@@ -397,7 +403,7 @@
     '_DSC7436.jpg',
     '_DSC7518.jpg',
     '_DSC7613.jpg',
-    '_DSC7757.jpg',
+    'top__DSC7755.jpg',
     '_DSC7766.jpg',
     '_DSC7768.jpg',
     '_DSC7958.jpg',
