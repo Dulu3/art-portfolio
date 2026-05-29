@@ -41,7 +41,6 @@
       title: "4. Platforma technologiczna",
       questions: [
         "Czy mają Państwo preferencje co do technologii (Shopify, WooCommerce, PrestaShop, Magento, rozwiązanie dedykowane)?",
-        "Czy istnieje wewnętrzny zespół IT, który będzie utrzymywał sklep, czy zarządzanie ma być maksymalnie proste dla osoby nietechnicznej?",
         "Czy są wymagania dotyczące hostingu (własny serwer, chmura, konkretny dostawca)?"
       ]
     },
@@ -93,17 +92,17 @@
         "Czy mają Państwo gotową identyfikację wizualną (logo, kolory, księga znaku)?",
         "Projekt graficzny: gotowy szablon, modyfikacja szablonu czy projekt dedykowany od podstaw?",
         "Czy potrzebne są makiety / prototypy do akceptacji przed wdrożeniem?",
-        "Wymagana responsywność (mobile, tablet) - zakładamy tak; jakieś szczególne wymagania?",
-        "Czy są wymagania dot. dostępności (WCAG)?"
+        "Wymagana responsywność (mobile, tablet); jakieś szczególne wymagania?",
+        "Czy są wymagania dot. dostępności (WCAG - przystosowany dla osób z niepełnosprawnościami)?"
       ]
     },
     {
       title: "9. Treści i dane",
       questions: [
-        "Kto przygotowuje treści - opisy produktów, teksty na stronę (Państwo czy my)?",
+        "Kto przygotowuje treści na stronę internetową (opisy produktów, teksty, treści podstron)(Wykonawca strony, Klient)?",
         "Czy są zdjęcia produktów w dobrej jakości, czy potrzebna jest sesja / obróbka?",
         "W jakim formacie są dane produktów (plik Excel/CSV, inny system, brak)?",
-        "Czy potrzebna jest migracja danych ze starego sklepu (produkty, klienci, zamówienia, opinie)?"
+        "Czy potrzebna jest migracja danych ze starego sklepu (produkty, klienci, zamówienia, opinie)(Jesli tak jak duzo?)?"
       ]
     },
     {
@@ -126,8 +125,7 @@
     {
       title: "12. Aspekty prawne i bezpieczeństwo",
       questions: [
-        "Czy potrzebne są regulamin, polityka prywatności, RODO, zgody cookies (klient dostarcza czy w zakresie)?",
-        "Certyfikat SSL, wymagania bezpieczeństwa, kopie zapasowe?",
+        "Certyfikat SSL(szyfrowanie danych (kłódka w przeglądarce)), wymagania bezpieczeństwa, kopie zapasowe?",
         "Czy branża jest regulowana (np. alkohol, suplementy, produkty medyczne) - dodatkowe wymogi?"
       ]
     },
