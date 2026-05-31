@@ -3,45 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kwestionariusz do wyceny sklepu internetowego</title>
+    <title>Kwestionariusze wyceny</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
     <main class="page">
-      <section class="survey-shell" aria-labelledby="survey-title">
+      <section class="survey-shell">
         <div class="intro">
-          <p class="eyebrow">Wycena e-commerce</p>
-          <h1 id="survey-title">Kwestionariusz do wyceny sklepu / strony internetowej</h1>
-          <p>
-            Formularz zbiera informacje potrzebne do przygotowania rzetelnej wyceny.
-            Im dokładniejsze odpowiedzi, tym precyzyjniejsza oferta.
-          </p>
+          <p class="eyebrow">Formularze wyceny</p>
+          <h1>Wybierz kwestionariusz</h1>
+          <p>Wybierz odpowiedni formularz, aby otrzymać wycenę dopasowaną do Twojego projektu.</p>
         </div>
 
-        <form id="survey-form" class="survey-form" novalidate>
-          <div id="survey-sections"></div>
-
-          <div class="bot-field" aria-hidden="true">
-            <label for="website">Strona internetowa</label>
-            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-          </div>
-
-          <label class="consent">
-            <input id="consent" name="consent" type="checkbox" value="Tak" required>
-            <span>Wyrażam zgodę na zapisanie odpowiedzi w celu przygotowania wyceny.</span>
-          </label>
-          <span class="error" data-error-for="consent"></span>
-
-          <div class="actions">
-            <button id="submit-button" type="submit">Wyślij kwestionariusz</button>
-            <p id="form-status" class="status" role="status" aria-live="polite"></p>
-          </div>
-        </form>
+        <nav class="survey-nav">
+          <a href="./serwis_sklep/" class="nav-card">
+            <h2>Sklep internetowy</h2>
+            <p>Wycena sklepu e-commerce, integracje, płatności, dostawa.</p>
+          </a>
+          <a href="./portfolio/" class="nav-card">
+            <h2>Portfolio / Strona wizytówka</h2>
+            <p>Strona prezentująca Twoje prace, usługi lub firmę.</p>
+          </a>
+        </nav>
       </section>
     </main>
-
-    <script src="./config.js"></script>
-    <script src="./survey-data.js"></script>
-    <script src="./script.js"></script>
   </body>
 </html>

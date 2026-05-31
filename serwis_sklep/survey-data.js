@@ -1,4 +1,4 @@
-﻿window.SURVEY_DEFINITION = {
+window.SURVEY_DEFINITION = {
   projectFields: [
     { id: "project_name", label: "Nazwa firmy / projektu", required: true },
     { id: "contact_person", label: "Osoba kontaktowa", required: true },
